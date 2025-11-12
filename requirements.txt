@@ -1,5 +1,5 @@
 fastapi>=0.100.0
 uvicorn>=0.22.0
-mindsdb-sdk>=3.4.8
+mindsdb-sdk
 pydantic>=1.10.0
 python-dotenv
