@@ -11,7 +11,7 @@ async def root():
     return {"message": "Hello World"}
 @router.post("/predict", response_model=PredictionOut)
 def predict(req: PredictionInput):
-    preds = get_prediction(req.rubrique, req.horizon)
+    preds = get_prediction(req.projectName,req.modelName,req.rubrique, req.horizon)
     return {"predictions": preds}
 
 @router.post("/create_project", response_model=CreateProjectResponse)

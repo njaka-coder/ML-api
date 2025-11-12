@@ -1,13 +1,13 @@
 from .mindsdb_client import get_server
 
-def get_prediction(rubrique: str, horizon: int):
+def get_prediction(projectName:str, modelName:str, rubrique: str, horizon: int):
     server = get_server()
     project = server.get_project("mindsdb")
 
     query = f"""
         SELECT m.journalier, m.montant_journalier, m.rubrique
         FROM sigfp_source.ml_tresorerie AS t
-        JOIN mindsdb.neuralforecast_model AS m
+        JOIN {projectName}.{modelName} AS m
         WHERE t.rubrique = '{rubrique}'
         LIMIT {horizon};
     """
