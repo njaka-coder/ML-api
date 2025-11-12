@@ -1,0 +1,31 @@
+from fastapi import APIRouter
+from schemas.schemas import PredictionInput, PredictionOut
+from schemas.project import CreateProjectRequest, CreateProjectResponse
+from schemas.model import CreateModelRequest, CreateModelResponse
+from core.forecasting import get_prediction
+from core.create_project import customeProjectName,customeModelName
+
+router = APIRouter()
+@router.get("/")
+async def root():
+    return {"message": "Hello World"}
+@router.post("/predict", response_model=PredictionOut)
+def predict(req: PredictionInput):
+    preds = get_prediction(req.rubrique, req.horizon)
+    return {"predictions": preds}
+
+@router.post("/create_project", response_model=CreateProjectResponse)
+def create_project_api(req: CreateProjectRequest):
+    try:
+        project = customeProjectName(req.projectName)
+        return {"status": "success", "message": f"Projet '{req.projectName}' créé.", "project": str(project)}
+    except Exception as e:
+        return {"status": "error", "message": str(e), "project": None}
+
+@router.post("/create_model", response_model=CreateModelResponse)
+def create_model_api(req: CreateModelRequest):
+    try:
+        model = customeModelName(req.projectName, req.modelName, req.window, req.horizon)
+        return {"status": "success", "message": f"Modèle '{req.modelName}' créé dans '{req.projectName}'.", "model": str(model)}
+    except Exception as e:
+        return {"status": "error", "message": str(e), "model": None}
