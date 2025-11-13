@@ -10,7 +10,7 @@ class CreateModelRequest(BaseModel):
 class CreateModelResponse(BaseModel):
     status: str
     message: str
-    model: str | None = None  # ou autre type/object si tu veux détailler
+    model: str 
 
 class ModelInfo(BaseModel):
     name: Optional[str]

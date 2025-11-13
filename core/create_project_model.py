@@ -32,7 +32,7 @@ def list_models(project_name: str):
     project = server.get_project(project_name)
     # Liste tous les modèles du projet
     models = project.models.list()  # Renvoie une liste d'objets Model
-    # Tu peux formater la sortie ici selon ce que tu veux retourner à l’API
+    
     result = []
     for m in models:
         d = getattr(m, "data", {})

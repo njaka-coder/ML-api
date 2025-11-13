@@ -19,13 +19,13 @@ def get_prediction(projectName:str, modelName:str, rubrique: str, horizon: int):
         print("✅ Étape 1 : fetch() OK")
         print(data)
 
-        # 🔥 Conversion du DataFrame → liste de dictionnaires
+        #  Conversion du DataFrame → liste de dictionnaires
         predictions = data.to_dict(orient="records")
 
         return predictions
 
     except Exception as e:
-        print(f"⚠️ Erreur lors du fetch: {e}")
+        print(f" Erreur lors du fetch: {e}")
 
         if hasattr(result, "rows") and result.rows:
             return {"predictions": result.rows}
