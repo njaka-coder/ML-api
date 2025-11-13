@@ -27,3 +27,24 @@ def customeModelName(projectName: str, modelName: str, window: int, horizon: int
         return model
     except Exception as e:
         raise RuntimeError(f"Erreur création modèle: {e,}")
+    
+def list_models(project_name: str):
+    project = server.get_project(project_name)
+    # Liste tous les modèles du projet
+    models = project.models.list()  # Renvoie une liste d'objets Model
+    # Tu peux formater la sortie ici selon ce que tu veux retourner à l’API
+    result = []
+    for m in models:
+        d = getattr(m, "data", {})
+        result.append({
+            "name": d.get("name"),
+            "engine": d.get("engine"),
+            "status": d.get("status"),
+            "accuracy": d.get("accuracy"),
+            "predict": d.get("predict"),
+            "created_at": d.get("created_at"),
+            "error": d.get("error"),
+            "update_status": d.get("update_status"),
+            "version": d.get("version")
+        })
+    return result
